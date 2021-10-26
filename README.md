@@ -1,5 +1,5 @@
 ## Simple Chat Application
-Hello there!
+Hello there!<br/>
 This is my first chat application by using Socket.IO library in order to open a communication channel between the server and the client.
 
 ## Setup
