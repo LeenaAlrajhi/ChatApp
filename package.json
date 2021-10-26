@@ -10,6 +10,7 @@
   "author": "Leena Alrajhi",
   "license": "ISC",
   "dependencies": {
+    "base64-arraybuffer": "^1.0.1",
     "braces": "^3.0.2",
     "express": "^4.17.1",
     "glob-parent": "^6.0.2",
