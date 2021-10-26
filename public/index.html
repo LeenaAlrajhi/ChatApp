@@ -129,8 +129,8 @@
 
             event.preventDefault();
 
-            if (msg.value === msg.value) {
-                console.log('jghhhvgh');
+            if (msg.value) {
+                // console.log('jghhhvgh');
                 socket.emit('message', msg.value);
                 msg.value = '';
             }
@@ -144,7 +144,7 @@
             socket.on('message', (msg) => {
 
                 $('#msg').append($('<li>').text(msg));
-                console.log('reeee');
+                // console.log('reeee');
 
             });
 
@@ -153,14 +153,14 @@
 
         const button = document.getElementById('button');
         if (button) {
-            console.log('ewr');
+            // console.log('ewr');
             button.addEventListener('click', submit, false);
         }
 
 
         socket.on('connect', () => {
             socket.emit('join', { room: room });
-            console.log('hii');
+            // console.log('hii');
 
         });
 
