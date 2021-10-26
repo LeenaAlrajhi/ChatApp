@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat App</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <style>
+        .selector-for-some-widget {
+            box-sizing: content-box;
+        }
+
+        .container {
+            position: fixed;
+            width: 100%;
+
+            height: 70%;
+
+            margin: auto;
+            width: 40%;
+            border: 2px solid gainsboro;
+            padding: 10px;
+
+        }
+
+        form {
+            position: fixed;
+            width: 100%;
+
+            height: 70%;
+
+            width: 40%;
+
+        }
+
+
+        li {
+            color: black;
+        }
+
+        input {
+            width: 400px;
+            height: 35px;
+        }
+
+
+        .input-group {
+
+            padding-left: 50px;
+            padding-right: 50px;
+            padding-top: 550px;
+        }
+
+        #box {
+            position: fixed;
+
+        }
+
+        #button {
+            margin-left: 10px;
+        }
+
+        body {
+            text-align: center;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="container">
+
+        <div class="rows">
+            <p id="p"></p>
+            <ul id="msg">
+            </ul>
+        </div>
+
+        <div class="rows" id="box">
+            <div class="col-xs-12">
+
+                <form id="msg-form" name="form" action="">
+                    <div class="input-group">
+
+                        <input id="inputText" name="inputText" autocomplete="off" type="text" class="form-control"
+                            placeholder="Please enter your message" aria-label="Please enter your message">
+
+                        <span class="input-group-btn">
+
+                            <button id="button" type="submit" type="button" class="btn btn-dark">Send</button>
+
+                        </span>
+
+                    </div>
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script> -->
+
+    <script src="socket.io/socket.io.js"></script>
+
+    <script>
+
+        var io = io();
+
+        const room = 'chatApp';
+        const socket = io.connect('/tech');
+
+
+
+        function submit(event) {
+            // console.log('877tt');
+
+            var msg = document.getElementById("inputText").value;
+
+            console.log(msg);
+
+            socket.emit('message', (msg, room));
+
+            document.getElementById('inputText').value = "";
+
+            event.preventDefault();
+
+            if (msg.value === msg.value) {
+                console.log('jghhhvgh');
+                socket.emit('message', msg.value);
+                msg.value = '';
+            }
+
+            socket.on('connect', () => {
+                socket.emit('join', { room: room });
+                console.log('hii');
+
+            });
+
+            socket.on('message', (msg) => {
+
+                $('#msg').append($('<li>').text(msg));
+                console.log('reeee');
+
+            });
+
+        }
+
+
+        const button = document.getElementById('button');
+        if (button) {
+            console.log('ewr');
+            button.addEventListener('click', submit, false);
+        }
+
+
+        socket.on('connect', () => {
+            socket.emit('join', { room: room });
+            console.log('hii');
+
+        });
+
+        socket.on('message', (msg) => {
+            document.getElementById("p").innerHTML = "Hooo"
+            // $('#msg').append($('<li>').text(msg));
+            console.log('reeee');
+
+        });
+
+
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+
+</body>
+
+</html>
